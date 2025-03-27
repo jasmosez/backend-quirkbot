@@ -1,5 +1,6 @@
 import express from "express"
 import cors from "cors"
+import { getCompletion, getResponse } from "./utils.js"
 
 const app = express();
 
@@ -22,9 +23,11 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.post("/chat", (req, res) => {
+app.post("/chat", async (req, res) => {
   const { message } = req.body;
-  res.json({ response: `Quirkbot said: Lol. you said: ${message}` });
+  // const botResponse = await getCompletion(message);
+  const botResponse = await getResponse(message);
+  res.json({ response: botResponse });
 });
 
 
